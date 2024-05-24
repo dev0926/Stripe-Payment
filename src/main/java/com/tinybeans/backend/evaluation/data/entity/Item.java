@@ -1,11 +1,11 @@
 package com.tinybeans.backend.evaluation.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -14,6 +14,7 @@ import java.util.List;
  */
 @Entity @Data @ToString
 @EqualsAndHashCode(callSuper = true)
+@Table(name = "item")
 public class Item extends BaseEntity{
 
     private String name, description, photoUrl;
@@ -21,5 +22,26 @@ public class Item extends BaseEntity{
     private Double price;
 
     @ManyToMany(mappedBy = "items")
+    @JsonBackReference
     private List<Orders> orders;
+
+    public Double getPrice() {
+        return this.price;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 }
